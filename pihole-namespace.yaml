@@ -1,0 +1,10 @@
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: pihole
+  labels:
+    app: pihole
+    component: pihole
+    tier: frontend
+    environment : production
