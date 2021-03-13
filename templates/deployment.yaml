@@ -43,9 +43,27 @@ spec:
             - name: client
               containerPort: 67
               protocol: UDP
-          envFrom:
-          - configMapRef:
-              name: {{ include "kubernetes-pihole.fullname" . }}-config
+          env:
+          {{- if .Values.webPort }}
+          - name: 'WEB_PORT'
+            value: "{{ .Values.webPort }}"
+          {{- end }}
+          {{- if .Values.virtualHost }}
+          - name: VIRTUAL_HOST
+            value: {{ .Values.virtualHost }}
+          {{- end }}
+          {{- if .Values.DNS1 }}
+          - name: 'DNS1'
+            value: {{ .Values.DNS1 }}
+          {{- end }}
+          {{- if .Values.DNS2 }}
+          - name: 'DNS2'
+            value: {{ .Values.DNS2 }}
+          {{- end }}
+          {{- range $key, $value := .Values.env }}
+          - name: {{ $key | quote }}
+            value: {{ $value | quote }}
+          {{- end }}
           - secretRef:
               name: {{ include "kubernetes-pihole.fullname" . }}
           livenessProbe:

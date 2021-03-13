@@ -2,6 +2,20 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
+# Environment variables from pihole image
+ServerIP: 192.168.0.210 
+DNS1: 8.8.4.4
+DNS2: 8.8.8.8
+webPort: 80
+virtualHost: pi.hole
+# echo -n 'pihole' | base64
+webpassword: cGlob2xl
+
+env: {}
+# Another environment variables from pihole image can be set here
+# Example:
+#  TZ: UTC
+
 replicaCount: 1
 
 image:
@@ -12,9 +26,6 @@ image:
 imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""
-
-# echo -n 'pihole' | base64
-webpassword: cGlob2xl
 
 serviceAccount:
   # Specifies whether a service account should be created
@@ -36,7 +47,6 @@ securityContext: {}
 
 services:
   type: LoadBalancer
-  serverIP: 192.168.0.210
   http:
     port: 80
   https:
