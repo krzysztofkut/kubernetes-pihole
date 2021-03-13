@@ -8,3 +8,5 @@ metadata:
 data:
   02-custom.conf: |
     address=/foo.bar/192.168.178.10
+  addn-hosts: |
+    #

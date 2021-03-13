@@ -57,6 +57,12 @@ spec:
               path: /
               port: http
           volumeMounts:
+          - mountPath: /etc/dnsmasq.d/02-custom.conf
+            name: custom-dnsmasq
+            subPath: 02-custom.conf
+          - mountPath: /etc/addn-hosts
+            name: custom-dnsmasq
+            subPath: addn-hosts
           {{- if .Values.adlists }}
           - mountPath: /etc/pihole/adlists.list
             name: adlists
@@ -87,6 +93,10 @@ spec:
         {{- toYaml . | nindent 8 }}
     {{- end }}
       volumes:
+      - configMap:
+          defaultMode: 420
+          name: {{ include "kubernetes-pihole.fullname" . }}-custom-dnsmasq
+        name: custom-dnsmasq
       {{- if .Values.adlists }}
       - configMap:
           defaultMode: 420
