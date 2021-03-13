@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: {{ include "kubernetes-pihole.fullname" . }}-pv
+  labels:
+    {{- include "kubernetes-pihole.labels" . | nindent 4 }}
+spec:
+  capacity:
+    storage: 500Mi
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: {{ include "kubernetes-pihole.fullname" . }}-storage
+  hostPath:
+    path: "/mnt/pihole"

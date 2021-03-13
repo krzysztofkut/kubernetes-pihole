@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: {{ include "kubernetes-pihole.fullname" . }}-pvc
+  labels:
+    {{- include "kubernetes-pihole.labels" . | nindent 4 }}
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 500Mi
+  storageClassName: {{ include "kubernetes-pihole.fullname" . }}-storage
+status: {}

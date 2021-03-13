@@ -5,12 +5,15 @@
 replicaCount: 1
 
 image:
-  repository: nginx
+  tag: v5.7
   pullPolicy: IfNotPresent
 
 imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""
+
+# echo -n 'pihole' | base64
+webpassword: cGlob2xl
 
 serviceAccount:
   # Specifies whether a service account should be created
@@ -30,9 +33,13 @@ securityContext: {}
   # runAsNonRoot: true
   # runAsUser: 1000
 
-service:
-  type: ClusterIP
-  port: 80
+services:
+  type: LoadBalancer
+  serverIP: 192.168.0.210
+  http:
+    port: 80
+  https:
+    port: 443
 
 ingress:
   enabled: false

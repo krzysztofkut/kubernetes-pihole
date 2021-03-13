@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "kubernetes-pihole.fullname" . }}-udp
+  labels:
+    {{- include "kubernetes-pihole.labels" . | nindent 4 }}
+  annotations:
+    metallb.universe.tf/address-pool: default
+    metallb.universe.tf/allow-shared-ip: {{ include "kubernetes-pihole.fullname" . }}
+spec:
+  type: LoadBalancer
+  loadBalancerIP: {{ .Values.services.serverIP }}
+  ports:
+    - port: 53
+      targetPort: dns-udp
+      protocol: UDP
+      name: dns-udp
+    - port: 67
+      targetPort: client
+      protocol: UDP
+      name: client
+  selector:
+    {{- include "kubernetes-pihole.selectorLabels" . | nindent 4 }}
