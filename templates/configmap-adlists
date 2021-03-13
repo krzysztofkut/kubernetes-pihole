@@ -1,0 +1,13 @@
+{{ if .Values.adlists }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "kubernetes-pihole.fullname" . }}-adlists
+  labels:
+    {{- include "kubernetes-pihole.labels" . | nindent 4 }}
+data:
+  adlists.list: |
+  {{- range .Values.adlists }}
+    {{ . }}
+  {{- end }}
+{{ end }}

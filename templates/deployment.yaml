@@ -56,6 +56,22 @@ spec:
             httpGet:
               path: /
               port: http
+          volumeMounts:
+          {{- if .Values.adlists }}
+          - mountPath: /etc/pihole/adlists.list
+            name: adlists
+            subPath: adlists.list
+          {{- end }}
+          {{- if .Values.blacklist }}
+          - mountPath: /etc/pihole/blacklist.txt
+            name: blacklist
+            subPath: blacklist.txt
+          {{- end }}
+          {{- if .Values.whitelist }}
+          - mountPath: /etc/pihole/whitelist.txt
+            name: whitelist
+            subPath: whitelist.txt
+          {{- end }}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
       {{- with .Values.nodeSelector }}
@@ -70,3 +86,23 @@ spec:
       tolerations:
         {{- toYaml . | nindent 8 }}
     {{- end }}
+      volumes:
+      {{- if .Values.adlists }}
+      - configMap:
+          defaultMode: 420
+          name: {{ include "kubernetes-pihole.fullname" . }}-adlists
+        name: adlists
+      {{- end }}
+      {{- if .Values.blacklist }}
+      - configMap:
+          defaultMode: 420
+          name: {{ include "kubernetes-pihole.fullname" . }}-blacklist
+        name: blacklist
+      {{- end }}
+      {{- if .Values.whitelist }}
+      - configMap:
+          defaultMode: 420
+          name: {{ include "kubernetes-pihole.fullname" . }}-whitelist
+        name: whitelist
+      {{- end }}
+

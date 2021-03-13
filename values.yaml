@@ -71,3 +71,21 @@ nodeSelector: {}
 tolerations: []
 
 affinity: {}
+
+adlists: {}
+  # Adlists urls can be provided here.
+  # Example:
+  # - https://adlist.ads/hosts.txt
+  # - https://adlist.ads/example/hosts
+
+blacklist: {}
+  # Blacklisted domanins can be provided here.
+  # Example:
+  # - blacklist.com
+  # - *.blacklist.com
+
+whitelist: {}
+  # Whitelisted domains can be provided here.
+  # Example:
+  # - whitelist.com
+  # - *.whitelist.com
