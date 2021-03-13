@@ -5,6 +5,7 @@
 replicaCount: 1
 
 image:
+  repository: pihole/pihole
   tag: v5.7
   pullPolicy: IfNotPresent
 
@@ -40,6 +41,11 @@ services:
     port: 80
   https:
     port: 443
+
+loadBalancer:
+  annotations:
+    metallb.universe.tf/address-pool: default
+    metallb.universe.tf/allow-shared-ip: pihole
 
 ingress:
   enabled: false

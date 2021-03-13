@@ -4,9 +4,10 @@ metadata:
   name: {{ include "kubernetes-pihole.fullname" . }}-udp
   labels:
     {{- include "kubernetes-pihole.labels" . | nindent 4 }}
+  {{- with .Values.loadBalancer.annotations }}
   annotations:
-    metallb.universe.tf/address-pool: default
-    metallb.universe.tf/allow-shared-ip: {{ include "kubernetes-pihole.fullname" . }}
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
 spec:
   type: LoadBalancer
   loadBalancerIP: {{ .Values.services.serverIP }}
