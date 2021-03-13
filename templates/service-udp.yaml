@@ -10,7 +10,7 @@ metadata:
   {{- end }}
 spec:
   type: LoadBalancer
-  loadBalancerIP: {{ .Values.services.serverIP }}
+  loadBalancerIP: {{ .Values.services.loadBalancerIP }}
   ports:
     - port: 53
       targetPort: dns-udp

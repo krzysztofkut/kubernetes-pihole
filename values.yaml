@@ -3,7 +3,6 @@
 # Declare variables to be passed into your templates.
 
 # Environment variables from pihole image
-ServerIP: 192.168.0.210 
 DNS1: 8.8.4.4
 DNS2: 8.8.8.8
 webPort: 80
@@ -47,8 +46,7 @@ securityContext: {}
 
 services:
   type: LoadBalancer
-  http:
-    port: 80
+  loadBalancerIP: 192.168.0.210
   https:
     port: 443
 

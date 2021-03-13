@@ -29,7 +29,7 @@ spec:
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
             - name: http
-              containerPort: {{ .Values.services.http.port }}
+              containerPort: {{ .Values.webPort }}
               protocol: TCP
             - name: https
               containerPort: {{ .Values.services.https.port }}
@@ -64,6 +64,7 @@ spec:
           - name: {{ $key | quote }}
             value: {{ $value | quote }}
           {{- end }}
+          envFrom:
           - secretRef:
               name: {{ include "kubernetes-pihole.fullname" . }}
           livenessProbe:

@@ -10,9 +10,9 @@ metadata:
   {{- end }}
 spec:
   type: LoadBalancer
-  loadBalancerIP: {{ .Values.services.serverIP }}
+  loadBalancerIP: {{ .Values.services.loadBalancerIP }}
   ports:
-    - port: {{ .Values.services.http.port }}
+    - port: {{ .Values.webPort }}
       targetPort: http
       protocol: TCP
       name: http
